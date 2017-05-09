@@ -9,6 +9,11 @@
 Hint:
 - chrome默认的设置禁止了单页面弹出多窗口，会导致打开多个页面的代码只能打开第一个页面，需要在chrome设置：Settings->Show advanced settings...->Privacy->Content settings...->Pop-ups->Allow all sites to show pop-ups
 
+2.0 Update:
+- 页面加载完自动关闭页面，大大节省时间
+- 发现已投过票页面立即停止，避免浪费无谓的时间
+- 投票按钮移到中间正上方，较为醒目
+
 1.0 Update:
 - vote按钮在页面左上角
 - 代码中的3000为延时3000毫秒，嫌太慢的可以改小

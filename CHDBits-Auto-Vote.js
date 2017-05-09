@@ -1,31 +1,23 @@
 // ==UserScript==
 // @name         CHDBits一键候选投票
-// @version      1.0
+// @version      2.0
 // @description  CHDBits一键候选投票
 // @author       StarRaven
 // @match        http://chdbits.co/offers.php
-// @supportURL   none
-// @contributionURL none
-// @grant        none
+// @github       https://github.com/StarRaven/CHDBits-Auto-Vote.git
 // ==/UserScript==
 
 var zNode       = document.createElement ('div');
-zNode.innerHTML = '<button id="myButton" type="button">'
-                + 'Vote</button>'
-                ;
+zNode.innerHTML = '<button id="myButton" type="button" style="width:200px;height:30px;margin-bottom:20px;">'+'自 动 投 票</button>';
 zNode.setAttribute ('id', 'myContainer');
-document.body.insertBefore(zNode,document.body.childNodes[0]);
+var parNode = document.getElementById("outer");
+parNode.insertBefore(zNode,parNode.childNodes[0]);
 
 document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
-function sleep(milliSeconds){
-    var startTime = new Date().getTime(); // get the current time
-    while (new Date().getTime() < startTime + milliSeconds);
-}
-
-var allURL = new Array();
+var allURL = [];
 var n = 0;
 
 function showUrl(index) {
@@ -34,10 +26,16 @@ function showUrl(index) {
         return;
     }
     var popup = window.open(allURL[index]);
-    setTimeout(function() {
+    popup.onload = function() {
+        var status = popup.document.getElementsByTagName('p')[0].innerHTML;
+        //console.log(status);
+        if (status == "你已经投过票，每个候选只能投一次。"){
+            popup.close();
+            return;
+        }
         popup.close();
         showUrl(index + 1);
-    }, 3000);
+    };
 }
 
 function ButtonClickAction (zEvent) {
@@ -51,3 +49,6 @@ function ButtonClickAction (zEvent) {
     }
     showUrl();
 }
+
+
+
